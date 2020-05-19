@@ -27,9 +27,9 @@ export default {
     }
   },
   methods:{
-    scrollTo(x,y,time){
-      this.scroll && this.scroll.scrollTo(0,0,500)
-    },
+    // scrollTo(x,y,time){
+    //   this.scroll && this.scroll.scrollTo(0,0,500)
+    // },
     //封装加载更多后处理的的方法
     finishPullUp(){
       this.scroll && this.scroll.finishPullUp()
@@ -37,9 +37,13 @@ export default {
     //封装refresh方法
     refresh(){
       // console.log('--------------');
-      
       this.scroll && this.scroll.refresh()
+    },
+    //封装判断获取scroll.y
+    getscrolly(){
+      return this.scroll ? this.scroll.y : 0
     }
+    
   },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
@@ -53,7 +57,7 @@ export default {
     })
     // console.log(this.scroll);
     
-    // 2.监听滚动的位置
+    // 2.监听滚动的事件(位置)
     if(this.probeType === 2 || this.probeType ===3){
         this.scroll.on('scroll',(position) =>{
         // console.log(position);

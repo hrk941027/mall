@@ -13,7 +13,7 @@
       <GoodLists :goods="showType" />
     </scroll>
     
-    <Backtop @click.native="backclick" v-show="isbacktop" />
+    <Backtop @click.native="backtopclick" v-show="isbacktop" />
   </div>
 </template>
 
@@ -24,12 +24,13 @@ import recommendview from "./childComps/recommendview"; //导入导航图下面�
 import FeatureView from "./childComps/FeatureView"; //导入四张小图下面大图片组件
 import TabControl from "content/tabControl/TabControl"; //导入三个分类组件
 import GoodLists from "content/goods/GoodLists"; //导入展示商品列表组件
-import Backtop from "content/backtop/Backtop"; //导入返回顶部组件
+
 
 import Scroll from "common/scroll/Scroll"; //导入beeterscroll插件
+import Backtop from "content/backtop/Backtop"; //导入返回顶部组件
 
 import {debounce} from "../../common/utils"; //导入定义的防抖方法
-
+import {itemListenerMixin} from "../../common/mixin"; //导入定义mixin
 
 import { getHomeMultidata, getHomeGoods } from "network/home"; //导入首页需要请求的数据axios请求
 
@@ -44,6 +45,7 @@ export default {
     Scroll,
     Backtop
   },
+  mixins : [ itemListenerMixin ],
   data() {
     return {
       banners: [],
@@ -57,7 +59,8 @@ export default {
       isbacktop:false,
       taboffsetTop:0,
       isfixed :false,
-      saveY:0
+      saveY:0,
+      
     };
   },
   computed: {
@@ -106,10 +109,10 @@ export default {
       this.$refs.tabcontrol2.cur = index
     },
     //组件原生点击
-    backclick(){
+    backtopclick(){
       // console.log(this.$refs.scroll.msg);
-      // this.$refs.scroll.scroll.scrollTo(0,0,500)
-      this.$refs.scroll.scrollTo()
+      this.$refs.scroll.scroll.scrollTo(0,0,500)
+      // this.$refs.scroll.scrollTo()
     },
     //子组件自定义方法 判断滑动到哪里
     contentscroll(position){
@@ -144,15 +147,28 @@ export default {
   },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
-    //3.监听图片是否加载完成  加上refresh 并且加上防抖动
-    const refresh = debounce(this.$refs.scroll.refresh,200)
-    this.$bus.$on('itemimgload',() =>{
-      // console.log('____________');
-      refresh()
-    })
+  
 
     //获取tabcontrol的offsetTop
     // console.log(this.$refs.tabcontrol.$el.offsetTop);
+    
+  },
+  destroyed(){
+    console.log('home destroyed');
+  },
+  activated(){ //活跃时
+    // console.log('activated');
+    this.$refs.scroll.scroll.scrollTo(0, this.saveY)
+    this.$refs.scroll.refresh()
+  },
+  deactivated(){ //不活跃时
+    // console.log('deactivated');
+    //1.保存y值
+    this.saveY = this.$refs.scroll.getscrolly()
+    console.log(this.saveY);
+
+    //2。取消全局事件监听
+    this.$bus.$off('itemimgload',this.itemimglisten)
     
   }
 };

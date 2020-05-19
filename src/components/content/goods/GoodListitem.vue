@@ -1,7 +1,7 @@
 <!--  -->
 <template>
-  <div class="goodlist">
-    <img :src="gooditem.show.img" alt="" @load="imageLoad">
+  <div class="goodlist" @click="itemclick">
+    <img v-lazy="showimg" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{gooditem.title}}</p>
       <span class="price">{{gooditem.price}}</span>
@@ -20,10 +20,28 @@ export default {
       }
     }
   },
+  computed:{
+    showimg(){
+      return this.gooditem.image || this.gooditem.show.img
+    }
+  },
   methods:{
     imageLoad(){
       // console.log(222);
       this.$bus.$emit('itemimgload')
+
+    //首页和详情页监听图片加载事件  
+      //方法1
+      // if(this.$route.path('./home')){
+      //   this.$bus.$emit('homeitemimgload')
+      // } else if(this.$route.path('./detail')){
+      //   this.$bus.$emit('detailitemimgload')
+      // }
+
+    },
+    itemclick(){
+      // console.log(222);
+      this.$router.push('/detail/' + this.gooditem.iid)  
     }
   },
   data() {
