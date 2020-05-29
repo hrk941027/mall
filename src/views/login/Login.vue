@@ -2,6 +2,10 @@
 <template>
   <div class="login-bg">
     <div class="login">
+      <div class="icon">
+        <img src="~assets/img/login/Broom.png" alt="" srcset="">
+        <p>欢迎来到购物街!</p>
+      </div>
       <el-form ref="loginFromRef" :model="LoginFrom" :rules="rules" label-width="0px" class="login_from">
         <el-form-item  prop="username">
           <el-input prefix-icon="el-icon-user" v-model="LoginFrom.username" class="btnnn"></el-input>
@@ -93,10 +97,17 @@ export default {
 .login{
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 55%;
   transform: translate(-50%, -50%);
 }
-.btns{
+.icon{
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+.bnts{
   display: flex;
   justify-content: space-between;
 }
