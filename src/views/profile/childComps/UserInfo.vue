@@ -2,9 +2,9 @@
   <div id="user-info">
     <a href="#" class="clear-fix">
       <slot name="user-icon">
-        <svg class="privateImage-svg left">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#avatar-default"></use>
-        </svg>
+        <div class="privateImage-svg left">
+          <img src="~assets/img/profile/me.jpg" alt="" srcset="">
+        </div>
       </slot>
       <div class="login-info left">
         <slot name="user-nickname">
@@ -12,12 +12,12 @@
         </slot>
         <div class="phone">
           <span>
-            <svg data-v-735ff1be="" fill="#fff" class="icon-mobile"><use data-v-735ff1be="" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mobile"></use></svg>
+            <img src="~assets/img/profile/phone.png" alt="" srcset="">
           </span>
           <slot name="user-phone">暂无绑定手机号</slot>
         </div>
       </div>
-      <svg data-v-735ff1be="" fill="#fff" class="arrow-svg right"><use data-v-735ff1be="" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use></svg>
+      <div class="arrow-svg right"><img src="~assets/img/profile/right.png" alt="" srcset=""></div>
     </a>
   </div>
 </template>
@@ -35,9 +35,9 @@
     margin-top: -5px;
   }
 
-  #user-info .privateImage-svg {
-    width: 60px;
-    height: 60px;
+  #user-info .privateImage-svg img{
+    width: 50px;
+    height: 50px;
     background-color: #fff;
     border-radius: 30px;
   }
@@ -46,10 +46,11 @@
     float: left;
   }
 
-  #user-info .arrow-svg {
+  #user-info .arrow-svg img{
     width: 11px;
     height: 22px;
     margin-top: 18px;
+    overflow: hidden;
   }
 
   #user-info .login-info {
@@ -66,11 +67,11 @@
     font-weight: 300;
   }
 
-  #user-info .login-info .phone .icon-mobile {
+  #user-info .login-info .phone img {
     position: absolute;
-    width: 12px;
+    width: 18px;
     height: 18px;
-    left: -15px;
+    left: -19px;
     top: 0px;
   }
 </style>

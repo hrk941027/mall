@@ -6,6 +6,7 @@ import toast from './components/common/toast'
 
 import Fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
+import './plugins/element.js'
 
 Vue.config.productionTip = false
 
