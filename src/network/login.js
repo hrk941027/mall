@@ -5,6 +5,7 @@ export function login(config) {
     timeout:5000
   })
   instance.interceptors.response.use(res =>{
+    //为请求头添加token验证Authorization字段
     res.headers.Authorization = window.sessionStorage.getItem('token')
     return res.data
   },err =>{
