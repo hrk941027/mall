@@ -13,7 +13,7 @@ export default {
         context.commit('addCounter',oldProduct)
         resolve('当前商品数量+1')
         }else{  //添加新的商品
-        payload.cont = 1
+        payload.count = 1
         // context.state.cartList.push(payload)
         context.commit('addToCart',payload)
         resolve('添加新的商品')

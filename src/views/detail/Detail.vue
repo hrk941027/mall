@@ -3,6 +3,11 @@
   <div id="detail">
     <Childdetail class="Childdetail" @btn="titelclick" ref="nav"></Childdetail>
     <Scroll class="content" ref="scroll" :probeType="3" @scroll="contentscroll">
+      <!-- <ul>
+        <li v-for="item in $store.state.cartList" :key="item.iid">
+          {{item}}
+        </li>
+      </ul> -->
       <Detailswiper :topimages="topimages" />
       <DetailBaseInfo :goods="goods" />
       <DetailShopInfo :shop="shop" />
@@ -112,6 +117,8 @@ export default {
     addToCart(){
       //1。获取购物车需要展示的信息
       const product = {}
+      product.logo = this.shop.logo
+      product.name = this.shop.name
       product.image = this.topimages[0]
       product.title = this.goods.title
       product.desc = this.goods.desc

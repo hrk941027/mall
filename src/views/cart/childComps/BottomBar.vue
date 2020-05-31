@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-menu">
-    <CheckButton class="select-all" @checkBtnClick="checkBtnClick" v-model="isSelectAll"></CheckButton>
+    <CheckButton class="select-all" :isChecked="isSelectAll" @click.native="checkClick"></CheckButton>
     <span>全选</span>
     <span class="total-price">合计: ¥{{totalPrice}}</span>
     <span class="buy-product" @click="hjclick">去计算({{checkLength}})</span>
@@ -21,19 +21,20 @@
         return cartList.filter(item => {
           return item.checked
         }).reduce((preValue, item) => {
-          return preValue + item.cont * item.price
+          return preValue + item.count * item.price
         }, 0).toFixed(2)
       },
       checkLength(){
         return this.$store.getters.cartList.filter(item => item.checked).length
       },
-      isSelectAll: function () {
+      //单选后全部选中方法
+      isSelectAll() {
         //首先判断有没有商品，没有直接为false
         if(this.$store.getters.cartLength === 0) return false
         //1用filter
         // return !( this.$store.getters.cartList.filter(item => !item.checked).length)
         //2用find
-        return this.$store.getters.cartList.find(item => !item.checked ) 
+        return !this.$store.getters.cartList.find(item => !item.checked ) 
         // return this.$store.getters.cartList.find(item => item.checked === false) === undefined;
         //3普通遍历
         // for(let item of this.$store.getters.cartList){
@@ -45,16 +46,16 @@
       }
     },
     methods: {
-      checkBtnClick: function () {
-        console.log('--------');
+      checkClick() {
+        // console.log('--------');
         // 1.判断是否有未选中的按钮
         // let isSelectAll = this.$store.getters.cartList.find(item => !item.checked);
 
         // 2.有未选中的内容, 则全部选中
         if (this.isSelectAll) { //全部选中
-          this.$store.state.cartList.forEach(item => { item.checked = true;});
-        } else {  //部分或全部不选中
           this.$store.state.cartList.forEach(item => { item.checked = false;});
+        } else {  //部分或全部不选中
+          this.$store.state.cartList.forEach(item => { item.checked = true;});
         }
       },
       hjclick(){

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="icon-selector" :class="{'selector-active': checked}" @click="selectItem">
+      <div class="icon-selector" :class="{check : isChecked}" >
         <img src="~/assets/img/cart/tick.svg" alt="">
       </div>
     </div>
@@ -10,26 +10,24 @@
 	export default {
 		name: "CheckButton",
     props: {
-		  value: {
+		  isChecked: {
 		    type: Boolean,
-        default: true
+        default: false
       }
     },
-    data: function () {
+    data () {
 		  return {
-		    checked: this.value
+		    
       }
     },
     methods: {
-      selectItem: function () {
-        this.$emit('checkBtnClick')
-      }
+      
     },
-    watch: {
-		  value: function (newValue) {
-        this.checked = newValue;
-      }
-    }
+    // watch: {
+		//   value: function (newValue) {
+    //     this.checked = newValue;
+    //   }
+    // }
 	}
 </script>
 
@@ -44,7 +42,7 @@
     cursor: pointer;
   }
 
-  .selector-active {
+  .check {
     background-color: #ff8198;
     border-color: #ff8198;
   }

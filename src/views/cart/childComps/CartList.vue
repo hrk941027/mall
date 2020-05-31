@@ -1,6 +1,6 @@
 <template>
     <div>
-      <cart-list-item v-for="item in cartList" :key="item.iid" :itemInfo="item"></cart-list-item>
+      <cart-list-item v-for="(item,index) in cartList" :key="index" :itemInfo="item" @add = "add(index)" @sub = "sub(index)" @remove = "remove(index)"></cart-list-item>
     </div>
 </template>
 
@@ -25,6 +25,17 @@
     // },
     computed:{
       ...mapGetters(['cartList'])
+    },
+    methods:{
+      add(index){
+        this.$store.commit('addNum',index)
+      },
+      sub(index){
+        this.$store.commit('subNum',index)
+      },
+      remove(index){
+        this.$store.commit('removeGood',index)
+      }
     }
 	}
 </script>
